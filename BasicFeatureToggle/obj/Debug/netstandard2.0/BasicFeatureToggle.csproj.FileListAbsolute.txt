@@ -1,9 +1,0 @@
-D:\Development\BasicFeatureToggle\BasicFeatureToggle\bin\Debug\netstandard2.0\BasicFeatureToggle.deps.json
-D:\Development\BasicFeatureToggle\BasicFeatureToggle\bin\Debug\netstandard2.0\BasicFeatureToggle.dll
-D:\Development\BasicFeatureToggle\BasicFeatureToggle\obj\Debug\netstandard2.0\BasicFeatureToggle.csproj.CoreCompileInputs.cache
-D:\Development\BasicFeatureToggle\BasicFeatureToggle\obj\Debug\netstandard2.0\BasicFeatureToggle.AssemblyInfoInputs.cache
-D:\Development\BasicFeatureToggle\BasicFeatureToggle\obj\Debug\netstandard2.0\BasicFeatureToggle.AssemblyInfo.cs
-D:\Development\BasicFeatureToggle\BasicFeatureToggle\bin\Debug\netstandard2.0\BasicFeatureToggle.pdb
-D:\Development\BasicFeatureToggle\BasicFeatureToggle\obj\Debug\netstandard2.0\BasicFeatureToggle.csprojAssemblyReference.cache
-D:\Development\BasicFeatureToggle\BasicFeatureToggle\obj\Debug\netstandard2.0\BasicFeatureToggle.dll
-D:\Development\BasicFeatureToggle\BasicFeatureToggle\obj\Debug\netstandard2.0\BasicFeatureToggle.pdb

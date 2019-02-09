@@ -1,4 +1,4 @@
-﻿namespace BasicFeatureToggle.SqlServer
+﻿namespace SqlFeatureToggle
 {
     public class SqlServerFeatureToggleSettings
     {

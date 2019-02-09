@@ -1,9 +1,10 @@
-﻿using BasicFeatureToggle.Internal;
+﻿using BasicFeatureToggle;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace BasicFeatureToggle.SqlServer
+namespace SqlFeatureToggle
 {
-    public class SqlServerBooleanFeatureToggle : SqlServerFeatureToggle<bool>, IBooleanFeatureToggle
+    public abstract class SqlServerBooleanFeatureToggle : SqlServerFeatureToggle<bool>, IBooleanFeatureToggle
     {
         /// <summary>
         ///     This feature toggle will connect to sql server to get a boolean feature toggle value.
@@ -13,11 +14,7 @@ namespace BasicFeatureToggle.SqlServer
         {
         }
 
-        public bool FeatureEnabled => (bool) GetFeatureToggleValue();
-
-        public async Task<bool> IsFeatureEnabledAsync()
-        {
-            return (bool) await GetFeatureToggleValueAsync();
-        } 
+        public bool FeatureEnabled => ToggleValue;
+        public Task<bool> IsFeatureEnabledAsync(CancellationToken cancellationToken) => IsFeatureEnabledAsync(cancellationToken);
     }
 }

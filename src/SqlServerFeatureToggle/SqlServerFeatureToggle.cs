@@ -1,10 +1,11 @@
-﻿using BasicFeatureToggle.Internal;
+﻿using BasicFeatureToggle;
 using System.Data.SqlClient;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace BasicFeatureToggle.SqlServer
+namespace SqlFeatureToggle
 {
-    public class SqlServerFeatureToggle<T> : IFeatureToggle<T>
+    public abstract class SqlServerFeatureToggle<T> : IFeatureToggle<T>
     {
         private readonly SqlServerFeatureToggleSettings _settings;
 
@@ -19,44 +20,37 @@ namespace BasicFeatureToggle.SqlServer
             _settings = settings;
         }
 
-        /// <summary>
-        /// The scalar value from the command provided
-        /// </summary>
-        public object FeatureValue => GetFeatureToggleValue();
+        protected abstract T ConvertScalarToGenericType(object o);
 
-        T IFeatureToggle<T>.ToggleValue => throw new System.NotImplementedException();
+        public T ToggleValue
+        {
+            get
+            {
+                using (var connection = new SqlConnection(_settings.ConnectionString))
+                {
+                    connection.Open();
+                    using (var cmd = GetSqlCommand(connection))
+                    {
+                        return ConvertScalarToGenericType(cmd.ExecuteScalar());
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Returns a scalar value from the command provided
         /// </summary>
         /// <returns></returns>
-        public async Task<object> GetFeatureToggleValueAsync()
+        public async Task<T> GetToggleValueAsync(CancellationToken cancellationToken)
         {
             using (var connection = new SqlConnection(_settings.ConnectionString))
             {
-                await connection.OpenAsync().ConfigureAwait(false);
+                await connection.OpenAsync(cancellationToken).ConfigureAwait(false);
                 using (var cmd = GetSqlCommand(connection))
                 {
-                    return await cmd.ExecuteScalarAsync().ConfigureAwait(false);
+                    return ConvertScalarToGenericType(await cmd.ExecuteScalarAsync(cancellationToken).ConfigureAwait(false));
                 }
             }
-        }
-
-        protected object GetFeatureToggleValue()
-        {
-            using (var connection = new SqlConnection(_settings.ConnectionString))
-            {
-                connection.Open();
-                using (var cmd = GetSqlCommand(connection))
-                {
-                    return cmd.ExecuteScalar();
-                }
-            }
-        }
-
-        Task<T> IFeatureToggle<T>.GetToggleValueAsync()
-        {
-            throw new System.NotImplementedException();
         }
 
         private SqlCommand GetSqlCommand(SqlConnection connection)

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BasicFeatureToggle.Internal
+namespace BasicFeatureToggle
 {
     public class BasicFeatureToggleConfigurationException : Exception
     {

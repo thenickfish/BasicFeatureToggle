@@ -20,8 +20,7 @@ namespace AspNet472.Controllers
             if (_multiplyToggle.FeatureEnabled)
                 id = id * 2;
 
-            if (_addExtraToggle.FeatureValue != null)
-                id = id + Convert.ToInt32(_addExtraToggle.FeatureValue);
+            id += _addExtraToggle.ToggleValue;
 
             return id;
         }

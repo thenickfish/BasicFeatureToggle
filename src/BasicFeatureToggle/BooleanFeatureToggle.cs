@@ -1,9 +1,9 @@
-﻿using BasicFeatureToggle.Internal;
+﻿using System.Threading;
 using System.Threading.Tasks;
 
 namespace BasicFeatureToggle
 {
-    public abstract class BooleanFeatureToggle : ObjectFeatureToggle<bool>, IBooleanFeatureToggle
+    public abstract class BooleanFeatureToggle : FlexibleFeatureToggle<bool>, IBooleanFeatureToggle
     {
         /// <summary>
         /// A simple feature toggle that can be provided a simple true/false configuration value
@@ -11,9 +11,9 @@ namespace BasicFeatureToggle
         /// <param name="featureIsEnabled"></param>
 
         public abstract bool FeatureEnabled { get; }
-        public abstract Task<bool> IsFeatureEnabledAsync();
+        public abstract Task<bool> IsFeatureEnabledAsync(CancellationToken cancellationToken);
 
-        protected override bool GetToggleValue() => FeatureEnabled;
-        protected override Task<bool> GetToggleValueTask() => IsFeatureEnabledAsync();
+        protected sealed override bool GetToggleValue() => FeatureEnabled;
+        protected sealed override Task<bool> GetToggleValueTask(CancellationToken cancellationToken) => IsFeatureEnabledAsync(cancellationToken);
     }
 }

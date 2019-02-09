@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP.NET Core 2.1", "Example
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP.NET 4.7.2", "Examples\ASP.NET 4.7.2\ASP.NET 4.7.2.csproj", "{90124513-A7F0-45B5-BDD8-324580ECF604}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlFeatureToggle", "SqlServerFeatureToggle\SqlFeatureToggle.csproj", "{84223F09-00FD-4E35-B38F-9B542D2952F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{90124513-A7F0-45B5-BDD8-324580ECF604}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90124513-A7F0-45B5-BDD8-324580ECF604}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90124513-A7F0-45B5-BDD8-324580ECF604}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84223F09-00FD-4E35-B38F-9B542D2952F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84223F09-00FD-4E35-B38F-9B542D2952F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84223F09-00FD-4E35-B38F-9B542D2952F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84223F09-00FD-4E35-B38F-9B542D2952F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

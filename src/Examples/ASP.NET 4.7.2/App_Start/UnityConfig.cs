@@ -38,8 +38,8 @@ namespace AspNet472
         public static void RegisterTypes(IUnityContainer container)
         {
             //add some providers for your feature toggles
-            container.RegisterInstance(new AddExtraToResultFeatureToggle(ConfigurationManager.AppSettings["AddExtraToResultFeatureToggle"]));
-            container.RegisterInstance(new MultiplyByTwoFeatureToggle(bool.Parse(ConfigurationManager.AppSettings["MultiplyByTwoFeatureToggle"])));
+            container.RegisterInstance(new AddExtraToResultFeatureToggle());
+            container.RegisterInstance(new MultiplyByTwoFeatureToggle());
         }
     }
 }

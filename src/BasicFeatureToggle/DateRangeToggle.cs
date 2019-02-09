@@ -1,10 +1,10 @@
-﻿using BasicFeatureToggle.Internal;
-using System;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BasicFeatureToggle
 {
-    public class EnabledDuringDateRangeToggle : BooleanFeatureToggle, IBooleanFeatureToggle
+    public abstract class DateRangeToggle : BooleanFeatureToggle, IBooleanFeatureToggle
     {
         private readonly DateTime? _disableDate;
         private readonly DateTime _enableDate;
@@ -16,7 +16,7 @@ namespace BasicFeatureToggle
         /// <param name="enableDate">This toggle will return false until the current date is greater than this date</param>
         /// <param name="disableDate">The toggle will return true until the current date is greater than this date</param>
         /// <param name="useUtcTime">when this parameter is set to true, UTC time will be used for the dates, otherwise local time will be used</param>
-        public EnabledDuringDateRangeToggle(DateTime enableDate, DateTime? disableDate = null, bool useUtcTime = false)
+        public DateRangeToggle(DateTime enableDate, DateTime? disableDate = null, bool useUtcTime = false)
         {
             if (enableDate == DateTime.MinValue)
                 throw new BasicFeatureToggleConfigurationException($"Toggle begin date may not be DateTime.MinValue. Check configuration for the {GetType().Name} toggle.");
@@ -36,7 +36,7 @@ namespace BasicFeatureToggle
             }
         }
 
-        public override bool FeatureEnabled
+        public sealed override bool FeatureEnabled
         {
             get
             {
@@ -45,9 +45,6 @@ namespace BasicFeatureToggle
             }
         }
 
-        public override Task<bool> IsFeatureEnabledAsync()
-        {
-            return Task.FromResult(FeatureEnabled);
-        }
+        public sealed override Task<bool> IsFeatureEnabledAsync(CancellationToken cancellationToken) => Task.FromResult(FeatureEnabled);
     }
 }

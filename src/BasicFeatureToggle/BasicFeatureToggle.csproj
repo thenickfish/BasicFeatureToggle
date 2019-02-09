@@ -14,17 +14,5 @@
     <Copyright>Nick Fish 2018</Copyright>
     <Description>Simple library to implement flexible feature toggles in your code. Supports date-driven, boolean, and object toggles, file existence toggles, as well as toggle configured in Sql Server. Developed against .NET Standard 2.0</Description>
   </PropertyGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
-    <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
-    <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
-  </ItemGroup>
   
 </Project>

@@ -1,7 +1,7 @@
 ﻿using BasicFeatureToggle;
-using BasicFeatureToggle.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BasicFeatureToggleTest
@@ -14,15 +14,15 @@ namespace BasicFeatureToggleTest
         {
             var past = DateTime.Now.AddSeconds(-10);
 
-            var toggle = new EnabledDuringDateRangeToggle(past);
+            var toggle = new TestDateRangeToggle(past);
             Assert.IsTrue(toggle.FeatureEnabled);
-            Assert.IsTrue(await toggle.IsFeatureEnabledAsync());
+            Assert.IsTrue(await toggle.IsFeatureEnabledAsync(CancellationToken.None));
 
             // test with end date present
             var future = DateTime.Now.AddSeconds(10);
-            toggle = new EnabledDuringDateRangeToggle(past, future);
+            toggle = new TestDateRangeToggle(past, future);
             Assert.IsTrue(toggle.FeatureEnabled);
-            Assert.IsTrue(await toggle.IsFeatureEnabledAsync());
+            Assert.IsTrue(await toggle.IsFeatureEnabledAsync(CancellationToken.None));
         }
 
         [TestMethod]
@@ -31,14 +31,14 @@ namespace BasicFeatureToggleTest
             var past = DateTime.Now.AddSeconds(-10);
             var future = DateTime.Now.AddSeconds(10);
 
-            var toggle = new EnabledDuringDateRangeToggle(future);
+            var toggle = new TestDateRangeToggle(future);
             Assert.IsFalse(toggle.FeatureEnabled);
-            Assert.IsFalse(await toggle.IsFeatureEnabledAsync());
+            Assert.IsFalse(await toggle.IsFeatureEnabledAsync(CancellationToken.None));
 
             // test with end date present
-            toggle = new EnabledDuringDateRangeToggle(future, future.AddSeconds(1));
+            toggle = new TestDateRangeToggle(future, future.AddSeconds(1));
             Assert.IsFalse(toggle.FeatureEnabled);
-            Assert.IsFalse(await toggle.IsFeatureEnabledAsync());
+            Assert.IsFalse(await toggle.IsFeatureEnabledAsync(CancellationToken.None));
         }
 
         [TestMethod]
@@ -46,9 +46,9 @@ namespace BasicFeatureToggleTest
         {
             var past = DateTime.Now.AddSeconds(-10);
 
-            var toggle = new EnabledDuringDateRangeToggle(past.AddSeconds(-1), past);
+            var toggle = new TestDateRangeToggle(past.AddSeconds(-1), past);
             Assert.IsFalse(toggle.FeatureEnabled);
-            Assert.IsFalse(await toggle.IsFeatureEnabledAsync());
+            Assert.IsFalse(await toggle.IsFeatureEnabledAsync(CancellationToken.None));
         }
 
         [TestMethod]
@@ -57,9 +57,16 @@ namespace BasicFeatureToggleTest
             var past = DateTime.Now.AddSeconds(-10);
             var future = DateTime.Now.AddSeconds(10);
 
-            Assert.ThrowsException<BasicFeatureToggleConfigurationException>(() => new EnabledDuringDateRangeToggle(future, past));
-            Assert.ThrowsException<BasicFeatureToggleConfigurationException>(() => new EnabledDuringDateRangeToggle(DateTime.MinValue));
+            Assert.ThrowsException<BasicFeatureToggleConfigurationException>(() => new TestDateRangeToggle(future, past));
+            Assert.ThrowsException<BasicFeatureToggleConfigurationException>(() => new TestDateRangeToggle(DateTime.MinValue));
 
+        }
+
+        private class TestDateRangeToggle : DateRangeToggle
+        {
+            public TestDateRangeToggle(DateTime enableDate, DateTime? disableDate = null, bool useUtcTime = false) : base(enableDate, disableDate, useUtcTime)
+            {
+            }
         }
     }
 }

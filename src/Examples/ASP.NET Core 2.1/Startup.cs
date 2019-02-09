@@ -24,6 +24,7 @@ namespace AspNetCore2
             // add your toggle classes to the service collection for DI
             services.AddScoped<AddExtraToResultFeatureToggle>();
             services.AddScoped<MultiplyByTwoFeatureToggle>();
+            services.AddScoped<DtmToggle>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

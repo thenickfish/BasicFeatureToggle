@@ -2,9 +2,9 @@
 
 namespace BasicFeatureToggle.Internal
 {
-    internal interface IFeatureToggle
+    public interface IFeatureToggle<T>
     {
-        object FeatureValue { get; }
-        Task<object> GetFeatureToggleValueAsync();
+        T ToggleValue { get; }
+        Task<T> GetToggleValueAsync();
     }
 }

@@ -4,9 +4,11 @@ using System.Threading.Tasks;
 
 namespace BasicFeatureToggle
 {
-    public class FileExistsFeatureToggle : IBooleanFeatureToggle
+    public class FileExistsFeatureToggle : BooleanFeatureToggle
     {
         private readonly string _fileName;
+
+        public override bool FeatureEnabled => File.Exists(_fileName);
 
         /// <summary>
         /// A toggle that will return true based on the existence of a file
@@ -19,11 +21,6 @@ namespace BasicFeatureToggle
             _fileName = fileName;
         }
 
-        public bool FeatureEnabled => File.Exists(_fileName);
-
-        public Task<bool> IsFeatureEnabledAsync()
-        {
-            return Task.FromResult(FeatureEnabled);
-        }
+        public override Task<bool> IsFeatureEnabledAsync() => Task.FromResult(FeatureEnabled);
     }
 }

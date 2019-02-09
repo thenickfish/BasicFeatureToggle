@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace BasicFeatureToggle
 {
-    public class EnabledDuringDateRangeToggle : IBooleanFeatureToggle
+    public class EnabledDuringDateRangeToggle : BooleanFeatureToggle, IBooleanFeatureToggle
     {
         private readonly DateTime? _disableDate;
         private readonly DateTime _enableDate;
@@ -36,7 +36,7 @@ namespace BasicFeatureToggle
             }
         }
 
-        public bool FeatureEnabled
+        public override bool FeatureEnabled
         {
             get
             {
@@ -45,7 +45,7 @@ namespace BasicFeatureToggle
             }
         }
 
-        public Task<bool> IsFeatureEnabledAsync()
+        public override Task<bool> IsFeatureEnabledAsync()
         {
             return Task.FromResult(FeatureEnabled);
         }

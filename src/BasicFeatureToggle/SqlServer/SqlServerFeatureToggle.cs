@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace BasicFeatureToggle.SqlServer
 {
-    public class SqlServerFeatureToggle : IFeatureToggle
+    public class SqlServerFeatureToggle<T> : IFeatureToggle<T>
     {
         private readonly SqlServerFeatureToggleSettings _settings;
 
@@ -23,6 +23,8 @@ namespace BasicFeatureToggle.SqlServer
         /// The scalar value from the command provided
         /// </summary>
         public object FeatureValue => GetFeatureToggleValue();
+
+        T IFeatureToggle<T>.ToggleValue => throw new System.NotImplementedException();
 
         /// <summary>
         /// Returns a scalar value from the command provided
@@ -50,6 +52,11 @@ namespace BasicFeatureToggle.SqlServer
                     return cmd.ExecuteScalar();
                 }
             }
+        }
+
+        Task<T> IFeatureToggle<T>.GetToggleValueAsync()
+        {
+            throw new System.NotImplementedException();
         }
 
         private SqlCommand GetSqlCommand(SqlConnection connection)

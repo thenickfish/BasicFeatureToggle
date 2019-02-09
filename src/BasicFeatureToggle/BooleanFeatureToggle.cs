@@ -3,22 +3,17 @@ using System.Threading.Tasks;
 
 namespace BasicFeatureToggle
 {
-    public class BooleanFeatureToggle : ObjectFeatureToggle, IBooleanFeatureToggle
+    public abstract class BooleanFeatureToggle : ObjectFeatureToggle<bool>, IBooleanFeatureToggle
     {
         /// <summary>
         /// A simple feature toggle that can be provided a simple true/false configuration value
         /// </summary>
         /// <param name="featureIsEnabled"></param>
-        public BooleanFeatureToggle(bool featureIsEnabled): base(featureIsEnabled)
-        {
-            FeatureEnabled = featureIsEnabled;
-        }
 
-        public bool FeatureEnabled { get; }
+        public abstract bool FeatureEnabled { get; }
+        public abstract Task<bool> IsFeatureEnabledAsync();
 
-        public Task<bool> IsFeatureEnabledAsync()
-        {
-            return Task.FromResult(FeatureEnabled);
-        }
+        protected override bool GetToggleValue() => FeatureEnabled;
+        protected override Task<bool> GetToggleValueTask() => IsFeatureEnabledAsync();
     }
 }

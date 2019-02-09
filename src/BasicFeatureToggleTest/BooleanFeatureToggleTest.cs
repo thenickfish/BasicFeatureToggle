@@ -11,16 +11,16 @@ namespace BasicFeatureToggleTest
         public async Task TestBooleanFeatureToggleValuesReturn()
         {
             var toggle = new BooleanFeatureToggle(true);
-            Assert.IsTrue((bool) toggle.FeatureValue);
+            Assert.IsTrue((bool) toggle.ToggleValue);
             Assert.IsTrue(toggle.FeatureEnabled);
             Assert.IsTrue(await toggle.IsFeatureEnabledAsync());
-            Assert.IsTrue((bool) await toggle.GetFeatureToggleValueAsync());
+            Assert.IsTrue((bool) await toggle.GetToggleValueAsync());
 
             toggle = new BooleanFeatureToggle(false);
-            Assert.IsFalse((bool) toggle.FeatureValue);
+            Assert.IsFalse((bool) toggle.ToggleValue);
             Assert.IsFalse(toggle.FeatureEnabled);
             Assert.IsFalse(await toggle.IsFeatureEnabledAsync());
-            Assert.IsFalse((bool) await toggle.GetFeatureToggleValueAsync());
+            Assert.IsFalse((bool) await toggle.GetToggleValueAsync());
         }
     }
 }

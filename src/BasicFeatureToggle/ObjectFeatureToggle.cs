@@ -3,22 +3,11 @@ using BasicFeatureToggle.Internal;
 
 namespace BasicFeatureToggle
 {
-    public class ObjectFeatureToggle : IFeatureToggle
+    public abstract class ObjectFeatureToggle<T> : IFeatureToggle<T>
     {
-        /// <summary>
-        /// A toggle that will return an object value
-        /// </summary>
-        /// <param name="featureValue">value of the feature toggle</param>
-        public ObjectFeatureToggle(object featureValue)
-        {
-            FeatureValue = featureValue ?? throw new BasicFeatureToggleConfigurationException($"Feature toggles may not specify a null value. Please check configuration for {GetType().Name}");
-        }
-
-        public object FeatureValue { get; }
-
-        public Task<object> GetFeatureToggleValueAsync()
-        {
-            return Task.FromResult(FeatureValue);
-        }
+        protected abstract Task<T> GetToggleValueTask();
+        protected abstract T GetToggleValue();
+        public T ToggleValue => GetToggleValue();
+        public Task<T> GetToggleValueAsync() => GetToggleValueTask();
     }
 }

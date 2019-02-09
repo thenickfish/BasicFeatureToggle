@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace BasicFeatureToggle.SqlServer
 {
-    public class SqlServerBooleanFeatureToggle : SqlServerFeatureToggle, IBooleanFeatureToggle
+    public class SqlServerBooleanFeatureToggle : SqlServerFeatureToggle<bool>, IBooleanFeatureToggle
     {
         /// <summary>
         ///     This feature toggle will connect to sql server to get a boolean feature toggle value.

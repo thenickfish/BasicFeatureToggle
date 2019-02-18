@@ -1,3 +1,6 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/d11edkp5b1mytanm/branch/master?svg=true)](https://ci.appveyor.com/project/thenickfish/basicfeaturetoggle/branch/master)
+[![NuGet](https://img.shields.io/nuget/vpre/basicfeaturetoggle.svg)](https://www.nuget.org/packages/basicfeaturetoggle)
+
 # BasicFeatureToggle
 
 A simple way to add flexible feature toggles to your .NET project (full framework or .NET core) without additional dependencies. You can easily use (or not use) your own configuration system and dependency injection. Classes are used to represent toggles (no magic strings) for easy refactoring at the end of the life of the toggle.

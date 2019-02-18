@@ -52,7 +52,7 @@ public int GetResult(IConfiguration config)
 }
 ```
 
-You can also use the flexible toggle to return anything you need, based on your own logic. Here's an example that returns the current second as an int:
+You can also use the flexible toggle to return anything you need, based on your own logic. Here's an example that returns a discount percentage based on the time of day:
 
 ```c#
 public class GetDiscountPercentageToggle : FlexibleFeatureToggle<double>

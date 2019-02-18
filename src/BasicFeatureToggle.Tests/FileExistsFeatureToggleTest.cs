@@ -10,27 +10,45 @@ namespace BasicFeatureToggleTest
     [TestClass]
     public class FileExistsFeatureToggleTest
     {
+        private string _testFileName;
+        private TestFileExistsClass _testToggle;
+
+        [TestInitialize]
+        public void TestInit()
+        {
+            _testFileName = $"{Guid.NewGuid()}.txt";
+            File.WriteAllText(_testFileName, "TestToggle");
+            _testToggle = new TestFileExistsClass(_testFileName);
+        }
+
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            if (File.Exists(_testFileName))
+                File.Delete(_testFileName);
+        }
+
         [TestMethod]
         public async Task FileExistsFeatureToggleReturnsTrueWhenFileExists()
         {
-            var filename = $"{Guid.NewGuid()}.txt";
-            File.WriteAllText(filename, $"test run for {filename} - {DateTime.Now.ToLongDateString()}");
+            Assert.AreEqual(true, _testToggle.FeatureEnabled);
+            Assert.AreEqual(true, await _testToggle.IsFeatureEnabledAsync(CancellationToken.None));
 
-            var toggle = new TestFileExistsClass(filename);
-            Assert.AreEqual(true, toggle.FeatureEnabled);
-            Assert.AreEqual(true, await toggle.IsFeatureEnabledAsync(CancellationToken.None));
+            File.Delete(_testFileName);
+
+            Assert.AreEqual(false, _testToggle.FeatureEnabled);
+            Assert.AreEqual(false, await _testToggle.IsFeatureEnabledAsync(CancellationToken.None));
+
         }
 
         [TestMethod]
         public async Task FileExistsFeatureToggleReturnsFalseWhenFileDoesnTExist()
         {
-            var filename = $"{Guid.NewGuid()}.txt";
-            if (File.Exists(filename))
-                File.Delete(filename);
+            File.Delete(_testFileName);
 
-            var toggle = new TestFileExistsClass(filename);
-            Assert.AreEqual(false, toggle.FeatureEnabled);
-            Assert.AreEqual(false, await toggle.IsFeatureEnabledAsync(CancellationToken.None));
+            Assert.AreEqual(false, _testToggle.FeatureEnabled);
+            Assert.AreEqual(false, await _testToggle.IsFeatureEnabledAsync(CancellationToken.None));
         }
 
         [TestMethod]
@@ -43,11 +61,6 @@ namespace BasicFeatureToggleTest
         {
             public TestFileExistsClass(string fileName) : base(fileName)
             {
-            }
-
-            internal Task<bool> IsFeatureEnabledAsync(object none)
-            {
-                throw new NotImplementedException();
             }
         }
     }

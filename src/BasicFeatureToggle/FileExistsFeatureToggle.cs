@@ -1,10 +1,10 @@
-﻿using BasicFeatureToggle.Internal;
-using System.IO;
+﻿using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BasicFeatureToggle
 {
-    public class FileExistsFeatureToggle : IBooleanFeatureToggle
+    public abstract class FileExistsFeatureToggle : BooleanFeatureToggle
     {
         private readonly string _fileName;
 
@@ -19,11 +19,7 @@ namespace BasicFeatureToggle
             _fileName = fileName;
         }
 
-        public bool FeatureEnabled => File.Exists(_fileName);
-
-        public Task<bool> IsFeatureEnabledAsync()
-        {
-            return Task.FromResult(FeatureEnabled);
-        }
+        public sealed override bool FeatureEnabled => File.Exists(_fileName);
+        public sealed override Task<bool> IsFeatureEnabledAsync(CancellationToken cancellationToken) => Task.FromResult(FeatureEnabled);
     }
 }

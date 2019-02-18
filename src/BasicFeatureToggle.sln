@@ -5,13 +5,22 @@ VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicFeatureToggle", "BasicFeatureToggle\BasicFeatureToggle.csproj", "{3E2023B5-D802-440A-AC5E-F882C6F18065}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicFeatureToggleTest", "BasicFeatureToggleTest\BasicFeatureToggleTest.csproj", "{A7C82CE1-4D76-4FEE-AC6B-877FE2799431}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicFeatureToggle.Tests", "BasicFeatureToggle.Tests\BasicFeatureToggle.Tests.csproj", "{A7C82CE1-4D76-4FEE-AC6B-877FE2799431}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{7AE38FC0-F87B-42C6-97FE-54ED6F3E1C83}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP.NET Core 2.1", "Examples\ASP.NET Core 2.1\ASP.NET Core 2.1.csproj", "{3F2520E6-1042-4C87-A527-38D02BD9A125}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP.NET 4.7.2", "Examples\ASP.NET 4.7.2\ASP.NET 4.7.2.csproj", "{90124513-A7F0-45B5-BDD8-324580ECF604}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlFeatureToggle", "SqlServerFeatureToggle\SqlFeatureToggle.csproj", "{84223F09-00FD-4E35-B38F-9B542D2952F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CCD59C1B-17C4-45A9-BC17-AED819B7BFB4}"
+	ProjectSection(SolutionItems) = preProject
+		..\appveyor.yml = ..\appveyor.yml
+		..\build.ps1 = ..\build.ps1
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,9 +41,12 @@ Global
 		{3F2520E6-1042-4C87-A527-38D02BD9A125}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F2520E6-1042-4C87-A527-38D02BD9A125}.Release|Any CPU.Build.0 = Release|Any CPU
 		{90124513-A7F0-45B5-BDD8-324580ECF604}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90124513-A7F0-45B5-BDD8-324580ECF604}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90124513-A7F0-45B5-BDD8-324580ECF604}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90124513-A7F0-45B5-BDD8-324580ECF604}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84223F09-00FD-4E35-B38F-9B542D2952F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84223F09-00FD-4E35-B38F-9B542D2952F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84223F09-00FD-4E35-B38F-9B542D2952F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84223F09-00FD-4E35-B38F-9B542D2952F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

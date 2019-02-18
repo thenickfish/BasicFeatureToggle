@@ -1,30 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netcoreapp2.0;netcoreapp2.1;net47;net471;net472</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Nick Fish</Authors>
     <PackageProjectUrl>https://github.com/thenickfish/BasicFeatureToggle</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/thenickfish/BasicFeatureToggle/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/thenickfish/BasicFeatureToggle.git</RepositoryUrl>
     <PackageTags>featuretoggle continuousdeployment</PackageTags>
     <Copyright>Nick Fish 2018</Copyright>
-    <Description>Simple library to implement flexible feature toggles in your code. Supports date-driven, boolean, and object toggles, file existence toggles, as well as toggle configured in Sql Server. Developed against .NET Standard 2.0</Description>
+    <Description>A simple way to add flexible feature toggles to your .NET project (full framework or .NET core) without additional dependencies. You can easily use (or not use) your own configuration system and dependency injection. Classes are used to represent toggles (no magic strings) for easy refactoring at the end of the life of the toggle. Supports boolean, generic (T), date-driven, and file existence toggles. Developed against .NET Standard 2.0</Description>
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
-    <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
-    <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   
 </Project>

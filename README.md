@@ -1,40 +1,46 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/d11edkp5b1mytanm/branch/master?svg=true)](https://ci.appveyor.com/project/thenickfish/basicfeaturetoggle/branch/master)
+[![NuGet](https://img.shields.io/nuget/vpre/basicfeaturetoggle.svg)](https://www.nuget.org/packages/basicfeaturetoggle)
+
 # BasicFeatureToggle
 
-A simple way to add flexible feature toggles to your .NET project (full framework or .NET core). Designed so you can easily use (or not use) your own configuration system and dependency injection.
+A simple way to add flexible feature toggles to your .NET project (full framework or .NET core) without additional dependencies. You can easily use (or not use) your own configuration system and dependency injection. Classes are used to represent toggles (no magic strings) for easy refactoring at the end of the life of the toggle.
 
 ### Available Toggles:
-- Basic Toggles
-    - BooleanFeatureToggle - provide a boolean value from your config
-    - ObjectFeatureToggle - provide an object value from your config
-    - FileExistsFeatureToggle - provide a path to a file, if that file exists it will enable the toggle
-    - EnabledDuringDateRangeToggle - provide a start and (optional) end date, this toggle will enable during that time
-- Sql Server Toggles
-    - SqlServerFeatureToggle - will run a query based on your configuration to return a scalar value from sql server
-    - SqlServerBooleanFeatureToggle - identical to the SqlServerFeatureToggle, but casts the result to a boolean
+
+- BooleanFeatureToggle: returns a boolean (true/ false) value based on your own logic
+- DateRangeToggle: returns true during a specified date range span
+- FileExistsFeatureToggle: returns true based on the existence of a file
+- FlexibleFeatureToggle: generic toggle (accepts a T) that can return any type of object based on your logic
 
 ## Getting Started
+
 Examples:
+
 - [ASP.NET Core 2.1](src/Examples/ASP.NET%20Core%202.1)
 - [ASP.NET Full Framework 4.7.2 (with Unity)](src/Examples/ASP.NET%204.7.2)
 
 ### Installing
 
 Install the Nuget package
+
 ```
 dotnet add package BasicFeatureToggle
 ```
 
-Create a class for your toggle that provides the value from your configuration (this example is "YourToggle")
+Implement one of the abstract classes listed above to provide your value (this example is called "YourToggle" and returns a boolean)
+
 ```c#
 public class YourToggle : BooleanFeatureToggle
 {
-    public YourToggle(IConfiguration configuration) : base(configuration["YourToggleConfigKey"])
-    {
-    }
+    private readonly IConfiguration _configuration;
+    public BoolFromConfigToggle(IConfiguration configuration) => _configuration = configuration;
+    public override bool FeatureEnabled => bool.Parse(_configuration["YourToggleConfigKey"]);
+    public override Task<bool> IsFeatureEnabledAsync(CancellationToken cancellationToken) => Task.FromResult(FeatureEnabled);
 }
 ```
 
 use an instance in your code to make decisions
+
 ```c#
 public int GetResult(IConfiguration config)
 {
@@ -46,9 +52,19 @@ public int GetResult(IConfiguration config)
 }
 ```
 
+You can also use the flexible toggle to return anything you need, based on your own logic. Here's an example that returns the current second as an int:
+
+```c#
+public class GetDiscountPercentageToggle : FlexibleFeatureToggle<double>
+{
+    protected override double GetToggleValue() => DateTime.Now.Hour < 10 ? .5 : .9;
+    protected override Task<double> GetToggleValueTask(CancellationToken cancellationToken) => Task.FromResult(GetToggleValue());
+}
+```
+
 ## Authors
 
-* **Nick Fish** - *Initial work* - [thenickfish](https://github.com/thenickfish)
+- **Nick Fish** - _Initial work_ - [thenickfish](https://github.com/thenickfish)
 
 See also the list of [contributors](https://github.com/thenickfish/BasicFeatureToggle/graphs/contributors) who participated in this project.
 

@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicFeatureToggle", "BasicFeatureToggle\BasicFeatureToggle.csproj", "{3E2023B5-D802-440A-AC5E-F882C6F18065}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicFeatureToggleTest", "BasicFeatureToggleTest\BasicFeatureToggleTest.csproj", "{A7C82CE1-4D76-4FEE-AC6B-877FE2799431}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicFeatureToggle.Tests", "BasicFeatureToggle.Tests\BasicFeatureToggle.Tests.csproj", "{A7C82CE1-4D76-4FEE-AC6B-877FE2799431}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{7AE38FC0-F87B-42C6-97FE-54ED6F3E1C83}"
 EndProject
